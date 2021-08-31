@@ -11,7 +11,7 @@ class Post :
     
     def __init__(self,title,author,tags,Content) -> None:
        
-        self.id = self.gerator_id()
+        self.id = self.generator_id()
         self.title = title 
         self.author = author
         self.tags = tags 
@@ -20,17 +20,16 @@ class Post :
         self.updated_at = self.last_update_in_post()
     
     
-    
-    
-    def gerator_id(self) -> int:
-        global id_post
-        temp = id_post + 1
-        id_post = temp 
-        return id_post
+    def generator_id(self) -> int:
+        try :
+            arr = list(db.posts.find())
+            last = arr.pop()['id']
+            new_id = last + 1
+            return  new_id
+        except :
+            return 1
 
-    def new_method(self):
-        global id_v
-        
+
     
     def when_post_is_create(self):
         
@@ -66,10 +65,32 @@ class Post :
         
     def add_post(self):
         
-        post = {"id":self.id, "title":self.title, "created_at": self.created_at}
-        posts.insert({"id":self.id, "title":self.title, "created_at": self.created_at})
+        post = {"id":self.id, "title":self.title, "author":self.author, "tags":self.tags, "content":self.content, "updated_at":self.updated_at }
+        posts.insert(post)
     
-
+    
+    @staticmethod
+    def delete_post(id):
+        
+        query  = list(posts.find({"id":id}))
+        if len(query) > 0 :
+            posts.remove( { "id": id } )
+            return True
+        return False
+    
+    @staticmethod
+    def load_all_post():
+        
+        query  = list(posts.find())
+        return query
+    
+    @staticmethod
+    def load_one_post(id):
+        
+        query  = list(posts.find({"id":id}))
+        return query
+        
+        
 # um_post = Post('hello word','nick','#introduction_mongo','Texto bonitinho')
 
 # print(um_post.updated_at)
