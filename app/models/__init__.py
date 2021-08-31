@@ -9,3 +9,6 @@ db = client.Kenzie
 
 
 # db.create_collection('posts')
+
+def add_post(data):
+    db.Kenzie.insert({"author":data['author'],"texto":data['texto']})
