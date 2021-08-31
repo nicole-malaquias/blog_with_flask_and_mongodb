@@ -23,6 +23,7 @@ class Post :
     
     
     def gerator_id(self) -> int:
+        global id_post
         temp = id_post + 1
         id_post = temp 
         return id_post
