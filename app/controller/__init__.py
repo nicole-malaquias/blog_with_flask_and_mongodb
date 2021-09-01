@@ -13,7 +13,6 @@ def delete_post(id):
 def load_all_post():
    
    query = Post.load_all_post()
-   
    return list(query)
 
 def load_one_post(id):
@@ -22,3 +21,8 @@ def load_one_post(id):
    if len(query) > 0 :
       return list(query)
    return None
+
+def update(id,data):
+   Post.update(id,data)
+   return 'oi'
+

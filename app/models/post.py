@@ -89,8 +89,15 @@ class Post :
         
         query  = list(posts.find({"id":id}))
         return query
+    
+    def update(id,data):
+        #preciso pegar os dados que chegaram e editar , como?
+        #ver se o campo tá preenchido 
+        #com jogo da velha da erro ... não sei mais o que fazer hsushuh
+        query = list(posts.find({"id":id}))[0]
+        data_update = datetime.today()
+        data['updated_at']= data_update
+        db.posts.update_one({"id":id},{set: data})
+        return ''
         
         
-# um_post = Post('hello word','nick','#introduction_mongo','Texto bonitinho')
-
-# print(um_post.updated_at)

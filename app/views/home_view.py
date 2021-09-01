@@ -1,5 +1,6 @@
 from flask import Flask, request , jsonify
-from app.controller import insert_post, delete_post , load_all_post,load_one_post
+from app.controller import insert_post, delete_post , load_all_post,load_one_post , update
+
 
 def home_view(app: Flask):
 
@@ -47,7 +48,15 @@ def home_view(app: Flask):
 
 
     @app.patch('/posts/<int:id>')
-    def update_post(id):
-        data = request.json
-        return 'update_post',200
-
+    def update_post(id:int):
+        
+        data_new = request.json
+        filds = ['author','title','tags','content']
+        
+        for i in data_new :
+            if i not in filds :
+                return {"msg":"Campo não é conhecido"},404
+        update(id,data_new)
+           
+        return {"msg":"atualizado"},200
+   
