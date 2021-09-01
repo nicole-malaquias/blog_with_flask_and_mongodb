@@ -96,8 +96,8 @@ class Post :
         #com jogo da velha da erro ... não sei mais o que fazer hsushuh
         query = list(posts.find({"id":id}))[0]
         data_update = datetime.today()
-        data['updated_at']= data_update
-        db.posts.update_one({"id":id},{set: data})
+        data['updated_at'] = data_update
+        db.posts.update_one({"id":id},{"$set": data })
         return ''
         
         
